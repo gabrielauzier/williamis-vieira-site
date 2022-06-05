@@ -3,11 +3,12 @@ import Head from "next/head";
 
 const Home: NextPage = () => {
   return (
-    <div>
+    <>
       <Head>
-        <title>Blog with GraphQL</title>
+        <title>Início ig.news</title>
       </Head>
-    </div>
+      <div>Hello </div>
+    </>
   );
 };
 
