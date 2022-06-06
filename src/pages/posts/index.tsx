@@ -1,7 +1,23 @@
+import { Client } from "@prismicio/client";
+import { GetStaticProps } from "next";
 import Head from "next/head";
+import { getPrismicClient } from "../../services/prismic";
 import styles from "./styles.module.scss";
+import { RichText } from "prismic-dom";
+import Link from "next/link";
 
-export default function Posts() {
+type Post = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  updatedAt: string;
+};
+
+interface PostProps {
+  posts: Post[];
+}
+
+export default function Posts({ posts }: PostProps) {
   return (
     <>
       <Head>
@@ -10,38 +26,48 @@ export default function Posts() {
 
       <main className={styles.container}>
         <div className={styles.posts}>
-          <a href="">
-            <time>12 de março de 2021</time>
-            <strong>Creating a Monorepo with Learna & Yark Workspace</strong>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.{" "}
-            </p>
-          </a>
-          <a href="">
-            <time>12 de março de 2021</time>
-            <strong>Creating a Monorepo with Learna & Yark Workspace</strong>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.{" "}
-            </p>
-          </a>
-          <a href="">
-            <time>12 de março de 2021</time>
-            <strong>Creating a Monorepo with Learna & Yark Workspace</strong>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.{" "}
-            </p>
-          </a>
+          {posts.map((post) => (
+            <Link href={`/posts/${post.slug}`}>
+              <a key={post.slug}>
+                <time>{post.updatedAt}</time>
+                <strong>{post.title}</strong>
+                <p>{post.excerpt}</p>
+              </a>
+            </Link>
+          ))}
         </div>
       </main>
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async ({
+  previewData,
+}): Promise<any> => {
+  const prismic: Client = getPrismicClient({ previewData });
+  const response = await prismic.getByType("post", { pageSize: 100 });
+
+  const posts = response.results.map((post) => {
+    return {
+      slug: post.uid,
+      title: RichText.asText(post.data.title),
+      excerpt:
+        post.data.content.find((content: any) => content.type === "paragraph")
+          ?.text ?? "",
+      updatedAt: new Date(post.last_publication_date).toLocaleDateString(
+        "pt-BR",
+        {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        }
+      ),
+    };
+  });
+
+  return {
+    props: {
+      posts,
+    },
+  };
+};
