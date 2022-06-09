@@ -1,0 +1,28 @@
+.container {
+  background-color: var(--yellow-500);
+  height: 30vh;
+
+  display: flex;
+  align-items: center;
+
+  footer {
+    max-width: 1120px;
+    width: 100%;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
