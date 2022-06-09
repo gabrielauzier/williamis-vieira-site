@@ -16,6 +16,17 @@
 
   --cyan-500: #61dafb;
   --yellow-500: #eba417;
+  --yellow-300: #ffe69a;
+
+  /* HSL color mode */
+  --hue: 159;
+  --base: hsl(var(--hue) 36% 57%);
+  --base-second: hsl(var(--hue) 65% 88%);
+  --base-alt: hsl(var(--hue) 57% 53%);
+  --title: hsl(var(--hue) 41% 10%);
+  --text: hsl(0 0% 46%);
+  --text-light: hsl(0 0% 98%);
+  --body: hsl(0 0% 98%);
 }
 
 html {
@@ -26,6 +37,7 @@ html {
   @media (max-width: 720px) {
     font-size: 87.5%;
   }
+  overflow-y: scroll;
 }
 
 body {
