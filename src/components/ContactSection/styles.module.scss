@@ -35,10 +35,6 @@
     line-height: 3rem;
     font-weight: 900;
     margin-top: 2.5rem;
-
-    span {
-      color: var(--cyan-500);
-    }
   }
 
   p {
@@ -47,7 +43,6 @@
     margin-top: 1.5rem;
 
     span {
-      color: var(--cyan-500);
       font-weight: bold;
     }
   }
@@ -63,8 +58,8 @@
     align-items: center;
 
     svg {
+      color: var(--base);
       margin-right: 1rem;
-      color: var(--cyan-500);
     }
 
     & + div {

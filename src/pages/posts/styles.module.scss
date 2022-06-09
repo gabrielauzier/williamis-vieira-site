@@ -15,14 +15,13 @@
     & + a {
       margin-top: 2rem;
       padding-top: 2rem;
-      border-top: 1px solid var(--gray-700);
+      border-top: 1px solid var(--border-thin);
     }
 
     time {
       font-size: 1rem;
       display: flex;
       align-items: center;
-      color: var(--gray-300);
     }
 
     strong {
@@ -33,13 +32,12 @@
     }
 
     p {
-      color: var(--gray-300);
       margin-top: 0.5rem;
       line-height: 1.625rem;
     }
 
     &:hover strong {
-      color: var(--yellow-500);
+      color: var(--base);
     }
   }
 }
